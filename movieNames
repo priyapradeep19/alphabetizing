@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+#include <fstream>
+#include <sstream>
+#include <algorithm>
+
+using namespace std;
+
+void print(vector <string> movieNames); //prints final alphabetized list
+
+int main(){
+    string filename = "Movie_entries.txt";
+    file.open(filename.c_str());
+        if(!file)
+        {
+           cout << "Error! File not opened." << endl;
+           file.clear();
+        }
+    
+    vector <string> movieNames;
+    cout<<"Enter file name: "<<endl;
+    string file;
+    cin>>file;
+    cout<<endl;
+    ifstream infile;
+    infile.open(file);
+    
+    while(!infile){
+        cout<<"ERROR, file not found! Please enter a valid name." << endl;
+        cout<<"Enter file name: "<< endl;
+        cin>>file;
+        infile.open(file);
+    }
+    
+    string line = " ";
+    while(getline(infile,line)){
+        stringstream lineStream(line);
+        string title;
+        getline(lineStream, title, ',');
+        movieNames.push_back(title);
+    }
+    
+    std::sort(movieNames.begin(), movieNames.end());
+    cout<<endl;
+    cout<<"ALPHABETICAL ORDER OF MOVIES: \n" << endl;
+    print(movieNames);
+}
+
+/*
+ This function compare the movies according to their first letter and prints them out in order.
+ */
+void print(vector <string> movieNames){
+    for(int i = 0; i < movieNames.size(); i++){
+        cout<<movieNames.at(i)<<endl;
+    }
+}
